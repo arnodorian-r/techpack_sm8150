@@ -3982,6 +3982,12 @@ static int msm_compr_probe(struct snd_soc_platform *platform)
 	if (!pdata)
 		return -ENOMEM;
 
+	#ifdef VENDOR_EDIT
+	/* Wan.li@RM.MM.AudioDriver.Kernel, 2020/03/18,
+	 * Add for mutx lock init to avoid null pointer. */
+	mutex_init(&pdata->lock);
+	#endif /* VENDOR_EDIT */
+
 	snd_soc_platform_set_drvdata(platform, pdata);
 
 	for (i = 0; i < MSM_FRONTEND_DAI_MAX; i++) {
